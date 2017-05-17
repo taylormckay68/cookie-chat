@@ -13,7 +13,29 @@ angular.module('chatroom').service('messageService', function($http){
   //Because we're making a POST request, need a data object with a message property IE data: {message: "Hello World"}
   //Also, remember that $http returns a promise. So return the whole $http call (return $http(...)), so you can then use .then in your controller.
 
+  this.getMessages = function() {
+    return $http({
+      method: 'GET',
+      url: 'https://practiceapi.devmountain.com/api/chats'
+    }).then(function(results) {
+      if (results.status === 200) {
+        return results;
+      }
+    })
+  };
 
-
+  this.postMessage = function(input) {
+    return $http({
+      method: 'POST',
+      url: 'https://practiceapi.devmountain.com/api/chats',
+      data: {
+        message: input
+      }
+    }).then(function(results) {
+      if(results.status === 200) {
+        return results;
+      }
+    })
+  }
 
 });
